@@ -87,6 +87,7 @@ export default function createScrollingComponent(WrappedComponent) {
     componentDidMount() {
       this.container = findDOMNode(this.wrappedInstance);
       this.container.addEventListener('dragover', this.handleEvent);
+      this.container.addEventListener('mousemove', this.handleEvent);
       // touchmove events don't seem to work across siblings, so we unfortunately
       // have to attach the listeners to the body
       window.document.body.addEventListener('touchmove', this.handleEvent);
@@ -99,6 +100,7 @@ export default function createScrollingComponent(WrappedComponent) {
 
     componentWillUnmount() {
       this.container.removeEventListener('dragover', this.handleEvent);
+      this.container.removeEventListener('mousemove', this.handleEvent);
       window.document.body.removeEventListener('touchmove', this.handleEvent);
       this.clearMonitorSubscription();
       this.stopScrolling();
@@ -125,12 +127,14 @@ export default function createScrollingComponent(WrappedComponent) {
     attach() {
       this.attached = true;
       window.document.body.addEventListener('dragover', this.updateScrolling);
+      window.document.body.addEventListener('mousemove', this.updateScrolling);
       window.document.body.addEventListener('touchmove', this.updateScrolling);
     }
 
     detach() {
       this.attached = false;
       window.document.body.removeEventListener('dragover', this.updateScrolling);
+      window.document.body.removeEventListener('mousemove', this.updateScrolling);
       window.document.body.removeEventListener('touchmove', this.updateScrolling);
     }
 
