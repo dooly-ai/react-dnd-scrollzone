@@ -2,7 +2,7 @@
   "name": "react-dnd-scrollzone",
   "version": "4.0.0",
   "description": "A cross browser solution to scrolling during drag and drop.",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "rm -rf lib && babel src --out-dir lib",
     "lint": "eslint src",
