@@ -8,12 +8,13 @@ import hoist from 'hoist-non-react-statics';
 import { noop, intBetween, getCoords } from './util';
 
 const DEFAULT_BUFFER = 150;
+const EDGE_BUFFER = 30;
 
 export function createHorizontalStrength(_buffer) {
   return function defaultHorizontalStrength({ x, w, y, h }, point) {
     const buffer = Math.min(w / 2, _buffer);
-    const inRange = point.x >= x && point.x <= x + w;
-    const inBox = inRange && point.y >= y && point.y <= y + h;
+    const inRange = point.x >= (x - EDGE_BUFFER) && point.x <= (x + w + EDGE_BUFFER);
+    const inBox = inRange && point.y >= (y - EDGE_BUFFER) && point.y <= (y + h + EDGE_BUFFER);
 
     if (inBox) {
       if (point.x < x + buffer) {

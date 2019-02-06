@@ -52,6 +52,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var DEFAULT_BUFFER = 150;
+var EDGE_BUFFER = 30;
 
 function createHorizontalStrength(_buffer) {
   return function defaultHorizontalStrength(_ref, point) {
@@ -61,8 +62,8 @@ function createHorizontalStrength(_buffer) {
         h = _ref.h;
 
     var buffer = Math.min(w / 2, _buffer);
-    var inRange = point.x >= x && point.x <= x + w;
-    var inBox = inRange && point.y >= y && point.y <= y + h;
+    var inRange = point.x >= x - EDGE_BUFFER && point.x <= x + w + EDGE_BUFFER;
+    var inBox = inRange && point.y >= y - EDGE_BUFFER && point.y <= y + h + EDGE_BUFFER;
 
     if (inBox) {
       if (point.x < x + buffer) {
